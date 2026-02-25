@@ -13,6 +13,7 @@ object ColorData {
         "black" to Color.BLACK,
         "white" to Color.WHITE,
         "gray" to Color.GRAY,
+        "light_green" to Color.rgb(144,238,144)
 
     ).mapKeys { it.key.lowercase() }
 }

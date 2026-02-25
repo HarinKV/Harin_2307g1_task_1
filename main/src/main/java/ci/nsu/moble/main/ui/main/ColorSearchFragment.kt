@@ -102,7 +102,7 @@ class ColorSearchFragment : Fragment() {
 
                 setOnClickListener {
                     etColorName.setText(name)
-                    searchColor(name)
+                    //searchColor(name)
                 }
             }
             paletteContainer.addView(button)
