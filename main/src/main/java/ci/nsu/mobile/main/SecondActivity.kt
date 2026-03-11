@@ -2,9 +2,10 @@ package ci.nsu.mobile.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.appbar.MaterialToolbar
+import androidx.appcompat.widget.Toolbar
 
 class SecondActivity : AppCompatActivity() {
 
@@ -12,22 +13,40 @@ class SecondActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
-        // Получение переданных данных
-        val receivedData = intent.getStringExtra("USER_DATA") ?: "Нет данных"
+        // Получаем переданные данные
+        val receivedData = intent.getStringExtra("key_data") ?: "Данные не получены"
+        val tvReceivedData = findViewById<TextView>(R.id.tvReceivedData)
+        tvReceivedData.text = "Получено: $receivedData"
 
-        val textViewData = findViewById<TextView>(R.id.textViewData)
-        textViewData.text = "Получено: $receivedData"
+        setupToolbar()
+        setupButtons()
+    }
 
-        // Настройка TopBar с кнопкой назад для возврата в MainActivity
-        val toolbar = findViewById<MaterialToolbar>(R.id.topAppBar)
+    private fun setupToolbar() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true) // Показываем кнопку назад
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        // Кнопка "Назад" в TopBar возвращает в MainActivity
         toolbar.setNavigationOnClickListener {
-            // Возврат в MainActivity
+            finish() // Просто закрываем текущую Activity и возвращаемся к предыдущей
+        }
+    }
+
+    private fun setupButtons() {
+        val btnBackToMain = findViewById<Button>(R.id.btnBackToMain)
+        val btnGoToNav = findViewById<Button>(R.id.btnGoToNav)
+
+        btnBackToMain.setOnClickListener {
+            // Простой способ вернуться в MainActivity
             val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP // Очищаем стек
             startActivity(intent)
             finish() // Закрываем текущую Activity
+        }
+
+        btnGoToNav.setOnClickListener {
+            val intent = Intent(this, NavActivity::class.java)
+            startActivity(intent)
         }
     }
 }
